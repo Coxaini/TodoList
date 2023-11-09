@@ -1,0 +1,40 @@
+<form class="card-body" [formGroup]="registerForm" (ngSubmit)="register()">
+    <h2 class="text-xl">Create a new account</h2>
+    <div class="form-control">
+        <label class="label">
+            <span class="label-text">Username</span>
+        </label>
+        <input type="username" placeholder="username" formControlName="username" class="input input-bordered"/>
+        <div class="text-error text-sm my-1" *ngIf="username.invalid && (username.dirty || username.touched)">
+            <span *ngIf="username.errors?.['taken']">Username is already taken</span>
+            <span *ngIf="username.errors?.['required']">Username is required</span>
+            <span *ngIf="username.errors?.['minlength']">Username must be at least 4 characters</span>
+            <span *ngIf="username.errors?.['maxlength']">Username cannot be more than 20 characters</span>
+        </div>
+    </div>
+    <div class="form-control">
+        <label class="label">
+            <span class="label-text">Password</span>
+        </label>
+        <input type="password" placeholder="password" formControlName="password" class="input input-bordered"/>
+        <div class="text-error text-sm my-1" *ngIf="password.invalid && (password.dirty || password.touched)">
+            <span *ngIf="password.errors?.['pattern']">Password must be minimum eight characters, at least one letter and one number</span>
+        </div>
+    </div>
+    <div class="form-control">
+        <label class="label">
+            <span class="label-text">Confirm password</span>
+        </label>
+        <input type="password" placeholder="confirm password" formControlName="passwordConfirm"
+               class="input input-bordered"/>
+        <div class="text-error text-sm my-1"
+             *ngIf="registerForm.invalid && (passwordConfirm.dirty || passwordConfirm.touched)">
+            <span *ngIf="passwordConfirm.errors?.['required']">Password confirmation is required</span>
+            <span *ngIf="registerForm.errors?.['passwordMismatch']">Password confirmation must be the same as password</span>
+        </div>
+    </div>
+    <div class="form-control mt-6">
+        <button class="btn btn-primary" [disabled]="registerForm.invalid">Register</button>
+    </div>
+    <a class="text-accent-content" routerLink="/auth/login">Already have an account ?</a>
+</form>

@@ -1,0 +1,7 @@
+<div class="card-body flex flex-row h-full">
+    <div class="flex-1 text-xl h-fit overflow-hidden">{{task.title}}</div>
+    <input type="checkbox" [attr.checked]="task.isCompleted ? '' : null" (click)="completeTask()"
+           class="checkbox checkbox-md"/>
+    <fa-icon icon="trash" class="text-red-500 cursor-pointer" size="xl" (click)="deleteTask()"></fa-icon>
+</div>
+<span *ngIf="task.isCompleted" class="text-green-500 mx-5">completed at: {{task.completedAt | date:'short'}}</span>

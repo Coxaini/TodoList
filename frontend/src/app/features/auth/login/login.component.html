@@ -1,0 +1,27 @@
+<form class="card-body" [formGroup]="loginForm" (ngSubmit)="login()">
+    <h2 class="text-xl">Login</h2>
+    <div class="form-control">
+        <label class="label">
+            <span class="label-text">Username</span>
+        </label>
+        <input type="username" formControlName="username" placeholder="username" class="input input-bordered"/>
+        <div class="text-error text-sm my-1" *ngIf="username.invalid && (username.dirty || username.touched)">
+            <span *ngIf="username.errors?.['required']">Username is required</span>
+            <span *ngIf="username.errors?.['incorrect']">User not found</span>
+        </div>
+    </div>
+    <div class="form-control">
+        <label class="label">
+            <span class="label-text">Password</span>
+        </label>
+        <input type="password" placeholder="password" formControlName="password" class="input input-bordered"/>
+        <div class="text-error text-sm my-1" *ngIf="password.invalid && (password.dirty || password.touched)">
+            <span *ngIf="password.errors?.['required']">Password is required</span>
+            <span *ngIf="password.errors?.['incorrect']">Incorrect password</span>
+        </div>
+    </div>
+    <div class="form-control mt-6">
+        <button class="btn btn-primary" [disabled]="loginForm.invalid">Login</button>
+    </div>
+    <a class="text-accent-content" routerLink="/auth/register">Don't have an account ?</a>
+</form>
