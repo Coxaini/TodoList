@@ -96,6 +96,9 @@ public class AuthenticationService : IAuthenticationService
         if (user is null)
             throw UserExceptions.UserNotFound;
 
+        if (user.RefreshToken != request.RefreshToken || user.RefreshTokenExpiryTime <= DateTime.UtcNow)
+            throw AuthenticationExceptions.InvalidRefreshToken;
+
         string token = _jwtTokenGenerator.GenerateToken(user);
 
         return new AuthenticationResult(token, user.RefreshToken, user.RefreshTokenExpiryTime);
